@@ -58,8 +58,6 @@ app.get("/", (req, res) => {
   res.render("index", { title: "Template title" });
 });
 
-// Authentication
-
 // 404
 app.get("*", (req, res) => {
   res.render("404", { title: "Not found" });
