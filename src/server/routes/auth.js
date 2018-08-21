@@ -3,11 +3,15 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/login", (req, res) => {
-  res.send("get - login");
+  req.session.user = {
+    name: "Test"
+  };
+  res.send("<a href='/'>Click to home</a>");
 });
 
 router.get("/logout", (req, res) => {
-  res.send("get - logout");
+  req.session.destroy();
+  res.send(`Session: ${req.session}`);
 });
 
 module.exports = router;

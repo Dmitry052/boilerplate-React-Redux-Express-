@@ -41,13 +41,29 @@ app.use(
   })
 );
 
+// Routes
+app.use("/auth", require("./server/routes/auth"));
+
+// Check user in session
+app.use((req, res, next) => {
+  const authURL = "/auth/login";
+  if (!req.session.user) {
+    return res.redirect(authURL);
+  }
+  return next();
+});
+
 // Index route
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   res.render("index", { title: "Template title" });
 });
 
 // Authentication
-app.use("/auth", require("./server/routes/auth"));
+
+// 404
+app.get("*", (req, res) => {
+  res.render("404", { title: "Not found" });
+});
 
 app.listen(APP_PORT, () => {
   log.info(`The application is running on: ${APP_PORT}`);

@@ -5,7 +5,7 @@ const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 const config = require("./src/config/config");
 
 const ENVIRONMENT = process.env.NODE_ENV;
-const HOST = process.env.HOST || config[ENVIRONMENT].server.host;
+const APP_HOST = process.env.APP_HOST || config[ENVIRONMENT].server.host;
 const APP_PORT =
   Number(process.env.APP_PORT) || config[ENVIRONMENT].server.port;
 
@@ -50,7 +50,7 @@ module.exports = {
     new BrowserSyncPlugin({
       host: "localhost",
       port: `${APP_PORT + 1}`,
-      proxy: `${HOST}:${APP_PORT}`
+      proxy: `${APP_HOST}:${APP_PORT}`
     })
   ]
 };
