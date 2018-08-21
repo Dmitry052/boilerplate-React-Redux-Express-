@@ -1,4 +1,6 @@
 const express = require("express");
+const session = require("express-session");
+const RedisStore = require("connect-redis")(session);
 const path = require("path");
 const serveStatic = require("serve-static");
 const bunyan = require("bunyan");
@@ -6,6 +8,10 @@ const config = require("./config/config");
 
 const ENVIRONMENT = process.env.NODE_ENV;
 const APP_PORT = process.env.APP_PORT || config[ENVIRONMENT].server.port;
+const REDIS_CONF = {
+  host: process.env.REDIS_HOST || config[ENVIRONMENT].redis.host,
+  port: process.env.REDIS_PORT || config[ENVIRONMENT].redis.port
+};
 
 const app = express();
 const log = bunyan.createLogger({ name: "My app" });
@@ -25,6 +31,15 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+// Initial session
+app.use(
+  session({
+    store: new RedisStore(REDIS_CONF),
+    secret: "#12dfwet$fIIdd",
+    resave: false
+  })
+);
 
 // Index route
 app.get("*", (req, res) => {
