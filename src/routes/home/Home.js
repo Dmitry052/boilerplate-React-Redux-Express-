@@ -10,7 +10,7 @@ class Home extends React.Component {
   render() {
     return (
       <div className="container">
-        <div class="alert alert-primary" role="alert">
+        <div className="alert alert-primary" role="alert">
           {this.props.initial}
         </div>
         <input

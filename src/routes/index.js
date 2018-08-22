@@ -8,8 +8,7 @@ import Topics from "./topics/Topics";
 const Routes = () => (
   <Router>
     <div>
-      <Header />
-      <hr />
+    <Header />
       <Route exact path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/topics" component={Topics} />
