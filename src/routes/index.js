@@ -1,19 +1,41 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Main from "./../components/main/Main";
+import Body from "./../components/body/Body";
 import Header from "./../components/header/Header";
-import Home from "./home/Home";
-import About from "./about/About";
-import Topics from "./topics/Topics";
 
-const Routes = () => (
-  <Router>
-    <div>
-    <Header />
-      <Route exact path="/" component={Home} />
-      <Route path="/about" component={About} />
-      <Route path="/topics" component={Topics} />
-    </div>
-  </Router>
-);
+const routes = [
+  {
+    path: "", // optional
+    action: () => <Main />
+  },
+  {
+    path: "/action",
+    action: () => console.log("checking child routes for /action"),
+    children: [
+      {
+        path: "",
+        action: () => <h3>Actions main</h3>
+      },
+      {
+        path: "/body",
+        action: () => <Body />
+      },
+      {
+        path: "/header",
+        action: () => <Header />
+      },
+      {
+        path: "/:page",
+        action: context => (
+          <h3>
+            Some page. This page name
+            {` '${context.params.page}'`}
+          </h3>
+        )
+      }
+    ]
+  },
+  { path: "(.*)", action: () => <h1>Not Found</h1> }
+];
 
-export default Routes;
+export default routes;

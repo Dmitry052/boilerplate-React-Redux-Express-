@@ -1,8 +1,8 @@
 import React from "react";
 
-const Body = ({ match }) => (
+const Body = () => (
   <div>
-    <h3>{match.params.topicId}</h3>
+    <h3>Body</h3>
   </div>
 );
 

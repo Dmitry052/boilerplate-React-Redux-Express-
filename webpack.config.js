@@ -11,10 +11,10 @@ const APP_PORT =
 const reStyle = /\.(css|less|scss|sss)$/;
 
 module.exports = {
-  entry: { app: "./src/index.js" },
+  entry: { app: "./src/routes/index.js" },
   output: {
-    path: path.resolve(__dirname, "./public/build"),
-    filename: "app.js"
+    path: path.resolve(__dirname, "./build"),
+    filename: "routes.js"
   },
   module: {
     rules: [
@@ -72,33 +72,29 @@ module.exports = {
             loader: "sass-loader"
           }
         ]
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: ["css-loader"]
+        })
       }
-      // {
-      //   test: /\.css$/,
-      //   use: ExtractTextPlugin.extract({
-      //     fallback: "style-loader",
-      //     use: ["css-loader"]
-      //   })
-      // },
-      // {
-      //   test: /\.scss$/,
-      //   use: ["style-loader", "css-loader", "sass-loader"]
-      // }
     ]
   },
   watch: ENVIRONMENT === "development" || false,
 
   plugins: [
-    new ExtractTextPlugin({ filename: "style.css" }),
+    // new ExtractTextPlugin({ filename: "style.css" }),
     // For run webpack and nodemon in watch mode
-    new NodemonPlugin({
-      watch: path.resolve("./src"),
-      script: path.resolve("./src/server.js")
-    }),
-    new BrowserSyncPlugin({
-      host: "localhost",
-      port: `${APP_PORT + 1}`,
-      proxy: `${APP_HOST}:${APP_PORT}`
-    })
+    // new NodemonPlugin({
+    //   watch: path.resolve("./src"),
+    //   script: path.resolve("./src/server.js")
+    // }),
+    // new BrowserSyncPlugin({
+    //   host: "localhost",
+    //   port: `${APP_PORT + 1}`,
+    //   proxy: `${APP_HOST}:${APP_PORT}`
+    // })
   ]
 };

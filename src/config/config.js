@@ -6,7 +6,8 @@ module.exports = {
     },
     server: {
       host: "http://localhost",
-      port: 3000
+      port: 3000,
+      routesPrefix: ""
     },
     redis: {
       host: "localhost",
@@ -20,7 +21,8 @@ module.exports = {
     },
     server: {
       host: "",
-      port: 80
+      port: 80,
+      routesPrefix: ""
     },
     redis: {
       host: "localhost",
