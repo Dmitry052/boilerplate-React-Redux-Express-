@@ -87,14 +87,10 @@ module.exports = {
   plugins: [
     // new ExtractTextPlugin({ filename: "style.css" }),
     // For run webpack and nodemon in watch mode
-    // new NodemonPlugin({
-    //   watch: path.resolve("./src"),
-    //   script: path.resolve("./src/server.js")
-    // }),
-    // new BrowserSyncPlugin({
-    //   host: "localhost",
-    //   port: `${APP_PORT + 1}`,
-    //   proxy: `${APP_HOST}:${APP_PORT}`
-    // })
+    new BrowserSyncPlugin({
+      host: "localhost",
+      port: `${APP_PORT + 1}`,
+      proxy: `${APP_HOST}:${APP_PORT}`
+    })
   ]
 };
