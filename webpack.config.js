@@ -1,23 +1,22 @@
+const webpack = require("webpack");
 const path = require("path");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const NodemonPlugin = require("nodemon-webpack-plugin");
-const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+const nodeExternals = require("webpack-node-externals");
+// const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+
 const config = require("./src/config/config");
+const SRC = path.resolve(__dirname, "./src");
+const reStyle = /\.(css|less|scss|sss)$/;
 
 const ENVIRONMENT = process.env.NODE_ENV;
 const APP_HOST = process.env.APP_HOST || config[ENVIRONMENT].server.host;
 const APP_PORT =
   Number(process.env.APP_PORT) || config[ENVIRONMENT].server.port;
-const reStyle = /\.(css|less|scss|sss)$/;
+const isDebug = ENVIRONMENT === "development";
 
-module.exports = {
-  entry: { app: "./src/routes/index.js" },
-  output: {
-    path: path.resolve(__dirname, "./build"),
-    filename: "routes.js"
-  },
+const configWebpack = {
   module: {
     rules: [
+      // Rules for JS
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -35,62 +34,76 @@ module.exports = {
         rules: [
           // Convert CSS into JS module
           {
-            issuer: { not: [reStyle] },
             use: "isomorphic-style-loader"
           },
 
           // Process external/third-party styles
           {
-            exclude: path.resolve(__dirname, "./src"),
+            exclude: SRC,
             loader: "css-loader",
             options: {
-              sourceMap: false,
-              minimize: true,
-              discardComments: { removeAll: true }
+              modules: true,
+              localIdentName: "[local]"
             }
           },
 
           // Process internal/project styles (from src folder)
           {
-            include: path.resolve(__dirname, "./src"),
+            include: SRC,
             loader: "css-loader",
             options: {
-              // CSS Loader https://github.com/webpack/css-loader
-              importLoaders: 1,
-              sourceMap: false,
-              // CSS Modules https://github.com/css-modules/css-modules
               modules: true,
-              localIdentName: "[name]-[local]",
-              // CSS Nano http://cssnano.co/options/
-              minimize: true,
-              discardComments: { removeAll: true }
+              localIdentName: "[name]-[local]"
             }
-          },
-
-          {
-            test: /\.scss$/,
-            loader: "sass-loader"
           }
         ]
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: ["css-loader"]
-        })
       }
     ]
   },
-  watch: ENVIRONMENT === "development" || false,
-
-  plugins: [
-    // new ExtractTextPlugin({ filename: "style.css" }),
-    // For run webpack and nodemon in watch mode
-    new BrowserSyncPlugin({
-      host: "localhost",
-      port: `${APP_PORT + 1}`,
-      proxy: `${APP_HOST}:${APP_PORT}`
-    })
-  ]
+  watch: isDebug,
+  resolve: {
+    alias: {
+      bootstrapCss: path.resolve(__dirname, "./node_modules/bootstrap/dist/css")
+    }
+  }
 };
+
+// For server
+const clientConfig = {
+  target: "web",
+  entry: { app: ["./src/client.js"] },
+  output: {
+    path: path.resolve(__dirname, "./public/js"),
+    filename: "client.js"
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      // Global variables
+      __DEV__: isDebug
+    })
+  ],
+  ...configWebpack
+};
+
+// For server
+const serverConfig = {
+  target: "node",
+  entry: { app: ["./src/server.js"] },
+  output: {
+    path: path.resolve(__dirname, "./build"),
+    filename: "server.js",
+    library: "library",
+    libraryTarget: "umd"
+  },
+  // for working absolute paths
+  node: {
+    __dirname: false,
+    __filename: false
+  },
+
+  externals: [nodeExternals({ whitelist: [reStyle] })],
+  plugins: [],
+  ...configWebpack
+};
+
+module.exports = [clientConfig, serverConfig];

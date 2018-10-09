@@ -1,28 +1,27 @@
 import React from "react";
 import Main from "./../components/main/Main";
-import Body from "./../components/body/Body";
-import Header from "./../components/header/Header";
+import Firstpage from "./Firstpage";
+import Secondpage from "./Secondpage";
+import Thirdpage from "./Thirdpage";
 
 const routes = [
   {
-    path: "", // optional
-    action: () => <Main />
-  },
-  {
-    path: "/action",
-    action: () => console.log("checking child routes for /action"),
     children: [
       {
-        path: "",
-        action: () => <h3>Actions main</h3>
+        path: "", // optional
+        action: () => <Main />
       },
       {
-        path: "/body",
-        action: () => <Body />
+        path: "/first",
+        action: () => <Firstpage />
       },
       {
-        path: "/header",
-        action: () => <Header />
+        path: "/second",
+        action: () => <Secondpage />
+      },
+      {
+        path: "/third",
+        action: () => <Thirdpage />
       },
       {
         path: "/:page",
@@ -35,7 +34,8 @@ const routes = [
       }
     ]
   },
-  { path: "(.*)", action: () => <h1>Not Found</h1> }
+
+  { path: "(.*)", action: () => <h1>Not Founddd</h1> }
 ];
 
 export default routes;

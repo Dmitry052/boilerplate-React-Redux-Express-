@@ -1,7 +1,7 @@
 import { SET_TEXT } from "./../constants/home";
 
 const initialState = {
-  initial: "Hello Home router"
+  initial: "Hello body router"
 };
 
 export default function home(state = initialState, action) {

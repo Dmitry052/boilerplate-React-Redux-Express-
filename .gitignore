@@ -1,5 +1,8 @@
+build/
 node_modules/
-/public/build/app.js
+public/js/client.js
+
+
 .DS_Store
 yarn.lock
 package-lock.json

@@ -4,9 +4,27 @@ import logger from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 import listReducers from "./reducers";
 
-const store = createStore(
-  listReducers,
-  composeWithDevTools(applyMiddleware(thunk, logger))
-);
+function createNewStore(initialState) {
+  const middleware = [thunk];
+  const enhancer = [listReducers, initialState];
 
-export default store;
+  if (typeof __DEV__ !== "undefined" && __DEV__) {
+    // Redux devtools in browser
+    enhancer.push(
+      window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+    );
+
+    middleware.push(logger);
+
+    enhancer.push(composeWithDevTools(applyMiddleware(...middleware)));
+  } else {
+    enhancer.push(applyMiddleware(...middleware));
+  }
+
+  const store = createStore(...enhancer);
+
+  return store;
+}
+
+export default createNewStore;

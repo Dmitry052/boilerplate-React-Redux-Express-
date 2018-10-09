@@ -1,13 +1,40 @@
-# Dependencies
+## Features
 
 ```
-node v10.7.0
-redis
+- React, Redux, SSR, SCSS
+- Bootstrap 4.1.3
+- Redis based sessions
 ```
 
-# Development
+## Dependencies
 
 ```
-npm i
-APP_HOST="http://localhost" APP_PORT=3000 REDIS_HOST=localhost REDIS_PORT=6379 NODE_ENV=development yarn run dev
+- Node v10.7.0
+- Redis
+- Yarn 1.7.0
+```
+
+## Environment variables
+
+```
+- APP_NAME application name
+- APP_PORT application port
+- REDIS_HOST redis host
+- REDIS_PORT redis port
+- NODE_ENV variables for webpack
+```
+
+## Install Development
+
+```
+- yarn install
+- APP_NAME=ExampleSite APP_PORT=3000 REDIS_HOST=localhost REDIS_PORT=6379 yarn run dev
+```
+
+## Install Production
+
+```
+- yarn install
+- yarn run build
+- APP_NAME=ExampleSite APP_PORT=3000 REDIS_HOST=localhost REDIS_PORT=6379 yarn start
 ```

@@ -1,5 +1,6 @@
 module.exports = {
   development: {
+    name: "boilerplate-DEV",
     api: {
       host: "",
       port: ""
@@ -15,6 +16,7 @@ module.exports = {
     }
   },
   production: {
+    name: "boilerplate-PROD",
     api: {
       host: "",
       port: ""
