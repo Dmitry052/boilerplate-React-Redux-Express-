@@ -8,7 +8,8 @@
     "build": "NODE_ENV=production webpack --mode production",
     "server:dev": "nodemon ./build/server.js --exec babel-node --presets @babel/preset-env,@babel/preset-react",
     "webpack:dev": "NODE_ENV=development webpack --mode development",
-    "dev": "yarn run webpack:dev & yarn run server:dev"
+    "dev": "yarn run webpack:dev & yarn start server:dev",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +34,7 @@
     "browser-sync": "^2.24.6",
     "browser-sync-webpack-plugin": "^2.2.2",
     "css-loader": "^1.0.0",
+    "enzyme": "^3.7.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "isomorphic-style-loader": "^4.0.0",
     "jest": "^23.6.0",

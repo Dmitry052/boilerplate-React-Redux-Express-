@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
-// const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 
 const config = require("./src/config/config");
 const SRC = path.resolve(__dirname, "./src");
@@ -102,7 +102,17 @@ const serverConfig = {
   },
 
   externals: [nodeExternals({ whitelist: [reStyle] })],
-  plugins: [],
+  plugins: [
+    isDebug
+      ? new BrowserSyncPlugin({
+          host: "localhost",
+          ui: {
+            port: `${Number(APP_PORT) + 1000}`
+          },
+          proxy: `${APP_HOST}:${APP_PORT}`
+        })
+      : null
+  ],
   ...configWebpack
 };
 
