@@ -1,4 +1,5 @@
-# Features
+# Boilerplate for quickly start developing an application.
+## Features
 
 ```
 * React, Redux, SSR, SCSS, Flow, Jest, Enzyme
@@ -6,7 +7,7 @@
 * Redis based sessions
 ```
 
-# Dependencies
+## Dependencies
 
 ```
 * Node v10.7.0
@@ -14,7 +15,7 @@
 * Yarn 1.7.0
 ```
 
-# Environment variables
+## Environment variables
 
 ```
 * APP_NAME application name
@@ -25,7 +26,7 @@
 * ROUTES_PREFIX prefix for url (http://myapp:3000/prefix/firstpage)
 ```
 
-# Install Development
+## Install Development
 
 ```
 - yarn install
@@ -39,7 +40,7 @@
 - yarn run test --watch
 ```
 
-# Install Production
+## Install Production
 
 ```
 - yarn install
