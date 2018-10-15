@@ -13,6 +13,17 @@ const APP_PORT =
   Number(process.env.APP_PORT) || config[ENVIRONMENT].server.port;
 const isDebug = ENVIRONMENT === "development";
 
+console.info(`
+**********************
+* " Webpack params "
+* ENVIRONMENT: ${ENVIRONMENT};
+* APP_HOST: ${APP_HOST};
+* APP_PORT: ${APP_PORT};
+* isDebug: ${isDebug}
+* Path src: ${SRC}
+**********************
+`);
+
 const configWebpack = {
   module: {
     rules: [
@@ -24,7 +35,11 @@ const configWebpack = {
           loader: "babel-loader",
           options: {
             babelrc: false,
-            presets: ["@babel/preset-env", "@babel/preset-react"],
+            presets: [
+              "@babel/preset-flow",
+              "@babel/preset-env",
+              "@babel/preset-react"
+            ],
             plugins: ["@babel/plugin-proposal-class-properties"]
           }
         }
@@ -106,12 +121,10 @@ const serverConfig = {
     isDebug
       ? new BrowserSyncPlugin({
           host: "localhost",
-          ui: {
-            port: `${Number(APP_PORT) + 1000}`
-          },
+          port: `${Number(APP_PORT) + 1000}`,
           proxy: `${APP_HOST}:${APP_PORT}`
         })
-      : null
+      : () => {}
   ],
   ...configWebpack
 };

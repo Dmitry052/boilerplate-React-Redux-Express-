@@ -18,8 +18,8 @@ module.exports = {
   production: {
     name: "boilerplate-PROD",
     api: {
-      host: "",
-      port: ""
+      host: "http://localhost",
+      port: "3000"
     },
     server: {
       host: "",

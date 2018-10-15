@@ -1,7 +1,7 @@
 # Features
 
 ```
-* React, Redux, SSR, SCSS
+* React, Redux, SSR, SCSS, Flow, Jest, Enzyme
 * Bootstrap 4.1.3
 * Redis based sessions
 ```
@@ -22,16 +22,18 @@
 * REDIS_HOST redis host
 * REDIS_PORT redis port
 * NODE_ENV variables for webpack
+* ROUTES_PREFIX prefix for url (http://myapp:3000/prefix/firstpage)
 ```
 
 # Install Development
 
 ```
 - yarn install
+- yarn run flow:typed
 - APP_NAME=ExampleSite APP_PORT=3000 REDIS_HOST=localhost REDIS_PORT=6379 yarn run dev
 ```
 
-### For tests
+### Run tests
 
 ```
 - yarn run test --watch

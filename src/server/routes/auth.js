@@ -1,17 +1,28 @@
 const express = require("express");
 
 const router = express.Router();
+let prefix;
 
-router.get("/login", (req, res) => {
+router.get("/create", (req, res) => {
   req.session.user = {
     name: "Test"
   };
-  res.send("<a href='/'>Click to home</a>");
+  res.redirect(`${prefix}/`);
+});
+
+router.get("/login", (req, res) => {
+  res.send(
+    `<center><h4>You have not session</h4> => <a href='${prefix}/auth/create'>Create session</a></center>`
+  );
 });
 
 router.get("/logout", (req, res) => {
   req.session.destroy();
-  res.send(`Session: ${req.session}`);
+  res.redirect("/");
 });
 
-module.exports = router;
+module.exports = data => {
+  const { ROUTES_PREFIX_STRING } = data;
+  prefix = ROUTES_PREFIX_STRING;
+  return router;
+};

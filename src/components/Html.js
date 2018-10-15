@@ -26,10 +26,10 @@ class Html extends React.Component {
           <script
             dangerouslySetInnerHTML={{ __html: `window.App=${serialize(app)}` }}
           />
-          <script src="/js/client.js" />
-          {/* <script src="/js/bootstrap.min.js" />
-          <script src="/js/jquery-3.2.1.min.js" />
-          <script src="/js/popper.min.js" /> */}
+          <script src="/static/js/client.js" />
+          <script src="/static/js/jquery-3.2.1.min.js" />
+          <script src="/static/js/bootstrap.min.js" />
+          <script src="/static/js/popper.min.js" />
         </body>
       </html>
     );

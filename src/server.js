@@ -23,7 +23,7 @@ const REDIS_CONF = {
 };
 const ROUTES_PREFIX =
   process.env.ROUTES_PREFIX || config[ENVIRONMENT].server.routesPrefix;
-const ROUTES_PREFIX_STRING = ROUTES_PREFIX === "" ? "*" : ROUTES_PREFIX;
+const ROUTES_PREFIX_STRING = ROUTES_PREFIX === "" ? "" : `/${ROUTES_PREFIX}`;
 const APP_NAME = process.env.APP_NAME || config[ENVIRONMENT].name;
 
 const SessionStore = sessionStore(session);
@@ -32,7 +32,7 @@ const app = express();
 const log = bunyan.createLogger({ name: APP_NAME });
 
 // Path server static
-app.use(serveStatic(path.resolve(__dirname, "./../public")));
+app.use("/static", serveStatic(path.resolve(__dirname, "./../public")));
 
 // Views & templates engine
 app.set("views", path.resolve(__dirname, "./../src/server/views"));
@@ -57,25 +57,47 @@ app.use(
 );
 
 // *** Test route
-app.use("/auth", require("./server/routes/auth"));
+app.use(
+  `${ROUTES_PREFIX_STRING}/auth`,
+  require("./server/routes/auth")({ ROUTES_PREFIX_STRING })
+);
 
 // Check user in session
 app.use((req, res, next) => {
-  const authURL = "/auth/login";
+  let { path } = req;
+  const authURL =
+    ROUTES_PREFIX_STRING !== ""
+      ? `${ROUTES_PREFIX_STRING}/auth/login`
+      : "/auth/login";
+
   if (!req.session.user) {
     return res.redirect(authURL);
   }
+
+  if (ROUTES_PREFIX_STRING !== "") {
+    const pathParse = path.split(ROUTES_PREFIX_STRING);
+    if (pathParse.length < 2 && ROUTES_PREFIX_STRING !== "") {
+      const url = `${ROUTES_PREFIX_STRING}${pathParse[0]}`;
+      return res.redirect(url);
+    }
+  }
+
   return next();
 });
 
+app.get(`${ROUTES_PREFIX_STRING}/favicon.ico`, (req, res) => res.status(204));
+
 // Index route
 app.get(
-  ROUTES_PREFIX_STRING !== "*"
-    ? `/${ROUTES_PREFIX_STRING}/*`
-    : ROUTES_PREFIX_STRING,
+  ROUTES_PREFIX_STRING !== "" ? `${ROUTES_PREFIX_STRING}/*` : "/*",
   async (req, res) => {
     // -----------------
-    const { path } = req;
+    let { path } = req;
+
+    if (ROUTES_PREFIX_STRING !== "") {
+      path = path.split(ROUTES_PREFIX_STRING)[1];
+    }
+
     const router = new UniversalRouter(routes);
     const route = await router.resolve(path);
 

@@ -1,0 +1,16 @@
+[ignore]
+.*/build
+.*/node_modules
+.*/public
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+module.name_mapper.extension='scss' -> '<PROJECT_ROOT>/src/scssmodule.js'
+module.system.node.resolve_dirname=node_modules
+
+[strict]

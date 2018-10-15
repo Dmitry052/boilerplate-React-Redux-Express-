@@ -1,6 +1,7 @@
-build/
+build/server.js
 node_modules/
 public/js/client.js
+flow-typed/
 
 
 .DS_Store
