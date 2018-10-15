@@ -17,6 +17,7 @@ import createNewStore from "./store";
 
 const ENVIRONMENT = process.env.NODE_ENV;
 const APP_PORT = process.env.APP_PORT || config[ENVIRONMENT].server.port;
+const REDIS = process.env.REDIS || true;
 const REDIS_CONF = {
   host: process.env.REDIS_HOST || config[ENVIRONMENT].redis.host,
   port: process.env.REDIS_PORT || config[ENVIRONMENT].redis.port
@@ -48,13 +49,16 @@ app.use((req, res, next) => {
 });
 
 // Initial session
-app.use(
-  session({
-    store: new SessionStore(REDIS_CONF),
-    secret: "#12dfwet$fIIdd",
-    resave: false
-  })
-);
+
+if (REDIS !== "false") {
+  app.use(
+    session({
+      store: new SessionStore(REDIS_CONF),
+      secret: "#12dfwet$fIIdd",
+      resave: false
+    })
+  );
+}
 
 // *** Test route
 app.use(
@@ -70,7 +74,7 @@ app.use((req, res, next) => {
       ? `${ROUTES_PREFIX_STRING}/auth/login`
       : "/auth/login";
 
-  if (!req.session.user) {
+  if (REDIS !== "false" && !req.session.user) {
     return res.redirect(authURL);
   }
 

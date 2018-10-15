@@ -1,4 +1,5 @@
 # Boilerplate for quickly start developing an application.
+
 ## Features
 
 ```
@@ -11,7 +12,7 @@
 
 ```
 * Node v10.7.0
-* Redis
+* Redis (custom, default -> ON)
 * Yarn 1.7.0
 ```
 
@@ -20,6 +21,7 @@
 ```
 * APP_NAME application name
 * APP_PORT application port
+* REDIS set "false" if you don't want using redis for session
 * REDIS_HOST redis host
 * REDIS_PORT redis port
 * NODE_ENV variables for webpack
