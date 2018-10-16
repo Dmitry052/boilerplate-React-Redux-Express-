@@ -60,6 +60,9 @@ if (REDIS !== "false") {
   );
 }
 
+app.get(`${ROUTES_PREFIX_STRING}/favicon.ico`, (req, res) => res.status(204));
+app.get(`${ROUTES_PREFIX_STRING}/static/*`, (req, res) => res.status(204));
+
 // *** Test route
 app.use(
   `${ROUTES_PREFIX_STRING}/auth`,
@@ -88,8 +91,6 @@ app.use((req, res, next) => {
 
   return next();
 });
-
-app.get(`${ROUTES_PREFIX_STRING}/favicon.ico`, (req, res) => res.status(204));
 
 // Index route
 app.get(
@@ -128,6 +129,7 @@ app.get(
       <App context={context}>{route}</App>
     );
     data.styles = [{ id: "css", cssText: [...css].join("") }];
+    data.prefix = ROUTES_PREFIX_STRING;
     data.app = context.store.getState();
     const html = ReactDOM.renderToString(<Html {...data} />);
     // -----------------

@@ -12,6 +12,9 @@ const APP_HOST = process.env.APP_HOST || config[ENVIRONMENT].server.host;
 const APP_PORT =
   Number(process.env.APP_PORT) || config[ENVIRONMENT].server.port;
 const isDebug = ENVIRONMENT === "development";
+const ROUTES_PREFIX =
+  process.env.ROUTES_PREFIX || config[ENVIRONMENT].server.routesPrefix;
+const ROUTES_PREFIX_STRING = ROUTES_PREFIX === "" ? "" : `/${ROUTES_PREFIX}`;
 
 console.info(`
 **********************
@@ -19,8 +22,9 @@ console.info(`
 * ENVIRONMENT: ${ENVIRONMENT};
 * APP_HOST: ${APP_HOST};
 * APP_PORT: ${APP_PORT};
-* isDebug: ${isDebug}
-* Path src: ${SRC}
+* isDebug: ${isDebug};
+* Path src: ${SRC};
+* ROUTES_PREFIX_STRING: ${ROUTES_PREFIX_STRING};
 **********************
 `);
 
@@ -93,6 +97,7 @@ const clientConfig = {
   },
   plugins: [
     new webpack.DefinePlugin({
+      PRODUCTION: JSON.stringify(!isDebug),
       // Global variables
       __DEV__: isDebug
     })

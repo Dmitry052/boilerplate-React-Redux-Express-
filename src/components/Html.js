@@ -3,7 +3,7 @@ import serialize from "serialize-javascript";
 
 class Html extends React.Component {
   render() {
-    const { children, styles, app } = this.props;
+    const { children, styles, app, prefix } = this.props;
 
     return (
       <html className="no-js" lang="en">
@@ -24,7 +24,14 @@ class Html extends React.Component {
         <body>
           <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
           <script
-            dangerouslySetInnerHTML={{ __html: `window.App=${serialize(app)}` }}
+            dangerouslySetInnerHTML={{
+              __html: `window.App=${serialize(app)};`
+            }}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.Prefix=${serialize(prefix)};`
+            }}
           />
           <script src="/static/js/client.js" />
           <script src="/static/js/jquery-3.2.1.min.js" />

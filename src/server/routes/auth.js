@@ -4,9 +4,11 @@ const router = express.Router();
 let prefix;
 
 router.get("/create", (req, res) => {
-  req.session.user = {
-    name: "Test"
-  };
+  if (req.session) {
+    req.session.user = {
+      name: "Test"
+    };
+  }
   res.redirect(`${prefix}/`);
 });
 
@@ -17,7 +19,10 @@ router.get("/login", (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  req.session.destroy();
+  if (req.session) {
+    req.session.destroy();
+  }
+
   res.redirect("/");
 });
 
