@@ -22,9 +22,7 @@ function createNewStore(initialState) {
     enhancer.push(applyMiddleware(...middleware));
   }
 
-  const store = createStore(...enhancer);
-
-  return store;
+  return createStore(...enhancer);
 }
 
 export default createNewStore;
