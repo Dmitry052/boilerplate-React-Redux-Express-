@@ -1,9 +1,9 @@
 import React from "react";
 import Layout from "./../../components/layout/Layout";
 import Header from "./../../components/header/Header";
-import Page from "./../../components/thirdpage/ThirdPage";
+import Page from "./../../components/Payform/Payform";
 
-class SecondPage extends React.Component {
+class FirstPage extends React.Component {
   render() {
     return (
       <Layout>
@@ -15,4 +15,4 @@ class SecondPage extends React.Component {
   }
 }
 
-export default SecondPage;
+export default FirstPage;

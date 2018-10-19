@@ -1,0 +1,120 @@
+input {
+  outline: none;
+  letter-spacing: 2;
+}
+
+@mixin cardsize {
+  width: 430px;
+  border-radius: 15px;
+  height: 273px;
+}
+
+$bordercard: 1px solid #c5c5c5;
+
+.payform {
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  width: 563px;
+  height: 299px;
+
+  .bankcard {
+    @include cardsize;
+    border: $bordercard;
+    background: linear-gradient(45deg, #eecfba, #c5dde8);
+    position: absolute;
+    z-index: 2;
+
+    .brand {
+      position: absolute;
+      width: 100%;
+
+      .brandname {
+        display: block;
+        position: absolute;
+        top: 22px;
+        font-size: 2.4em;
+        font-weight: 200;
+        margin: 0px 35px;
+        letter-spacing: 10px;
+      }
+    }
+
+    .period {
+      width: 88px;
+      margin: 10px auto;
+
+      input {
+        width: 10px;
+        width: 38px;
+        padding: 2px 5px;
+      }
+
+      span {
+        padding: 0 3px;
+      }
+    }
+
+    .cardnum {
+      margin-top: 100px;
+      margin-left: 35px;
+      margin-right: 35px;
+
+      input {
+        width: 100%;
+        padding: 7px 5px;
+        border: none;
+
+        font-size: 1.2em;
+      }
+    }
+
+    .cardowner {
+      margin: 0px 33px;
+    }
+
+    img {
+      position: absolute;
+      width: 195px;
+      right: 15px;
+      bottom: 23px;
+    }
+  }
+
+  .backside {
+    @include cardsize;
+    border: $bordercard;
+    background: linear-gradient(45deg, #c5dde8, #cea78c);
+    position: absolute;
+    z-index: 1;
+    left: 134px;
+    top: 25px;
+
+    .magline {
+      width: 100%;
+      height: 65px;
+      background: #4e4e4e;
+      margin-top: 22;
+    }
+
+    .privatedata {
+      width: 100%;
+      margin-top: 12px;
+      margin-bottom: 5px;
+
+      input {
+        width: 85%;
+        direction: rtl;
+        padding: 9px 15px;
+      }
+    }
+
+    .textForCvc {
+      right: 6;
+      position: absolute;
+      width: 125px;
+      font-weight: 100;
+    }
+  }
+}

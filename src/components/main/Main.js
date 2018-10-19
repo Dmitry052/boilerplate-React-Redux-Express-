@@ -5,9 +5,8 @@ import s from "./Main.scss";
 import Layout from "./../../components/layout/Layout";
 
 import Header from "./../../components/header/Header";
-import FirstPage from "./../../components/firstpage/FirstPage";
-import SecondPage from "./../../components/secondpage/SecondPage";
-import ThirdPage from "./../../components/thirdpage/ThirdPage";
+import Payform from "./../../components/Payform/Payform";
+import { dispatch } from "rxjs/internal/observable/range";
 
 class Main extends React.Component {
   render() {
@@ -15,11 +14,7 @@ class Main extends React.Component {
       <Layout>
         <Header />
 
-        <FirstPage />
-
-        <SecondPage />
-
-        <ThirdPage />
+        <Payform />
       </Layout>
     );
   }

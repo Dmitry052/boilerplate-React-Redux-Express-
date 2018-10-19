@@ -1,8 +1,6 @@
 import React from "react";
 import Main from "./../components/main/Main";
-import Firstpage from "./Firstpage";
-import Secondpage from "./Secondpage";
-import Thirdpage from "./Thirdpage";
+import Payform from "./Payform";
 
 const routes = [
   {
@@ -10,16 +8,8 @@ const routes = [
     action: () => <Main />
   },
   {
-    path: "/first",
-    action: () => <Firstpage />
-  },
-  {
-    path: "/second",
-    action: () => <Secondpage />
-  },
-  {
-    path: "/third",
-    action: () => <Thirdpage />
+    path: "/payform",
+    action: () => <Payform />
   }
   // {
   //   path: "/:page",

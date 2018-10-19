@@ -74,6 +74,14 @@ const configWebpack = {
               modules: true,
               localIdentName: "[name]-[local]"
             }
+          },
+          {
+            include: SRC,
+            loader: "sass-loader",
+            options: {
+              modules: true,
+              localIdentName: "[name]-[local]"
+            }
           }
         ]
       }
