@@ -17,7 +17,7 @@ $bordercard: 1px solid #c5c5c5;
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   width: 563px;
-  height: 299px;
+  height: 340px;
 
   .bankcard {
     @include cardsize;
@@ -42,12 +42,12 @@ $bordercard: 1px solid #c5c5c5;
     }
 
     .period {
-      width: 88px;
+      width: 110px;
       margin: 10px auto;
 
-      input {
+      select {
         width: 10px;
-        width: 38px;
+        width: 47px;
         padding: 2px 5px;
       }
 
@@ -116,5 +116,12 @@ $bordercard: 1px solid #c5c5c5;
       width: 125px;
       font-weight: 100;
     }
+  }
+
+  .btnPay {
+    position: absolute;
+    width: 100px;
+    bottom: 0;
+    right: 0;
   }
 }

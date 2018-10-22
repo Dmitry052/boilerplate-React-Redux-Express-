@@ -14,7 +14,7 @@ class Main extends React.Component {
       <Layout>
         <Header />
 
-        <Payform />
+        <Payform mm={[1, 12]} yy={[15, 29]} />
       </Layout>
     );
   }
