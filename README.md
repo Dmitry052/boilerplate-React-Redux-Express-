@@ -1,4 +1,4 @@
-# Boilerplate for quickly start developing an application.
+# Payform template based on boilerplate
 
 ## Features
 
